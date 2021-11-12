@@ -1,13 +1,10 @@
-const validation = schema => {
-  const validationMiddleware = (req, res, next) => {
-    const { error } = schema.validate(req.body)
-    if (error) {
-      error.status = 400
-      next(error)
-    }
-    next()
+const validation = schema => (req, res, next) => {
+  const { error } = schema.validate(req.body)
+  if (error) {
+    error.status = 400
+    next(error)
   }
-  return validationMiddleware
+  next()
 }
 
 module.exports = validation
