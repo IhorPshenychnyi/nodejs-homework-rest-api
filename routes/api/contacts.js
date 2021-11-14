@@ -3,7 +3,7 @@ const express = require('express')
 const router = express.Router()
 
 const { validation } = require('../../middlewares')
-const { joiSchema, joiUpdateSchema } = require('../../models/contact')
+const { joiSchema } = require('../../models/contact')
 const { contactsController } = require('../../controllers')
 
 router.get('/', contactsController.getAll)
@@ -18,7 +18,7 @@ router.put('/:contactId', validation(joiSchema), contactsController.updateById)
 
 router.patch(
   '/:contactId/favorite',
-  validation(joiUpdateSchema),
+  validation(joiSchema),
   contactsController.updateStatusContact,
 )
 

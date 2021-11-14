@@ -27,11 +27,7 @@ const joiSchema = Joi.object({
   phone: Joi.string()
     .pattern(/^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/)
     .required(),
-  favorite: Joi.boolean().falsy(),
-})
-
-const joiUpdateSchema = Joi.object({
-  favorite: Joi.boolean().required(),
+  favorite: Joi.boolean(),
 })
 
 const Contact = model('contact', contactSchema)
@@ -39,5 +35,4 @@ const Contact = model('contact', contactSchema)
 module.exports = {
   Contact,
   joiSchema,
-  joiUpdateSchema,
 }
