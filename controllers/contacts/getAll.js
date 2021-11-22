@@ -2,12 +2,17 @@ const { Contact } = require('../../models')
 
 const getAll = async (req, res, next) => {
   try {
-    const { page, limit, favorite } = req.query
+    const { favorite = false } = req.query
+    const page = Number(req.query.page)
+    const limit = Number(req.query.limit)
+
     const { _id } = req.user
 
     const filteredContacts = []
 
-    if (favorite && favorite === 'true') {
+    //           Фильтрация контактов по полю избранного (GET /contacts?favorite=true)
+
+    if (favorite === 'true') {
       const contacts = await Contact.find(
         { owner: _id },
         '_id name email phone favorite',
@@ -28,6 +33,7 @@ const getAll = async (req, res, next) => {
         },
       })
     }
+    //                                   Пагинация колекции контактов
 
     const skip = (page - 1) * limit
     const contacts = await Contact.find(
@@ -35,7 +41,7 @@ const getAll = async (req, res, next) => {
       '_id name email phone favorite',
       {
         skip,
-        limit: +limit,
+        limit,
       },
     ).populate('owner', '_id email')
 
