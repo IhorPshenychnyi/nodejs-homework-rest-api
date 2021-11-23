@@ -12,10 +12,6 @@ const authenticate = async (req, res, next) => {
 
     const [bearer, token] = req.headers.authorization.split(' ')
 
-    if (!token) {
-      throw new Unauthorized('Not authorized')
-    }
-
     if (bearer !== 'Bearer') {
       throw new Unauthorized('Not authorized')
     }
