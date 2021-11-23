@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const { User } = require('../models')
 const { SECRET_KEY } = process.env
 
-const athenticate = async (req, res, next) => {
+const authenticate = async (req, res, next) => {
   try {
     if (typeof req.headers.authorization !== 'string') {
       throw new Unauthorized('Not authorized')
@@ -42,4 +42,4 @@ const athenticate = async (req, res, next) => {
   }
 }
 
-module.exports = athenticate
+module.exports = authenticate
