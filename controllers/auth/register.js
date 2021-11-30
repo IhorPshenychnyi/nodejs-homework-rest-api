@@ -15,7 +15,7 @@ const register = async (req, res, next) => {
     if (user) {
       throw new Conflict('Email in use')
     }
-    const avatarURL = gravatar.url(email)
+    const avatarURL = gravatar.url(email, { protocol: 'http' })
     const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
     const newUser = await User.create({
       email,

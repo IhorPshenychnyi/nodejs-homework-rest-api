@@ -1,13 +1,17 @@
 const fs = require('fs').promises
 const path = require('path')
 const Jimp = require('jimp')
-const { Unauthorized } = require('http-errors')
+const { Unauthorized, UnsupportedMediaType } = require('http-errors')
 
 const { User } = require('../../models')
 
 const avatarsDir = path.join(__dirname, '../../public/avatars')
 
 const updateUserAvatar = async (req, res, next) => {
+  if (!req.file) {
+    return next(new UnsupportedMediaType('Error loading file'))
+  }
+
   const { _id } = req.user
   const { path: tempUpload, originalname } = req.file
 
