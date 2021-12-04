@@ -28,4 +28,8 @@ router.patch(
   authController.updateUserAvatar,
 )
 
+router.get('/verify/:verificationToken', authController.verify)
+
+router.post('/verify', validation(joiSchema), authController.reVerify)
+
 module.exports = router
